@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/siriwave"></script>
+</head>
+<body>
+<div id="siri-container" style="width: 500px; height: 150px;"></div>
+<div id="microphone-container">
+    <?xml version="1.0" encoding="iso-8859-1"?>
+    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+    <svg id="microphone-icon" fill="#fff" height="70px" width="70px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+         viewBox="0 0 490.9 490.9" xml:space="preserve">
+    <g>
+        <g>
+            <path d="M245.5,322.9c53,0,96.2-43.2,96.2-96.2V96.2c0-53-43.2-96.2-96.2-96.2s-96.2,43.2-96.2,96.2v130.5
+                C149.3,279.8,192.5,322.9,245.5,322.9z M173.8,96.2c0-39.5,32.2-71.7,71.7-71.7s71.7,32.2,71.7,71.7v130.5
+                c0,39.5-32.2,71.7-71.7,71.7s-71.7-32.2-71.7-71.7V96.2z"/>
+            <path d="M94.4,214.5c-6.8,0-12.3,5.5-12.3,12.3c0,85.9,66.7,156.6,151.1,162.8v76.7h-63.9c-6.8,0-12.3,5.5-12.3,12.3
+                s5.5,12.3,12.3,12.3h152.3c6.8,0,12.3-5.5,12.3-12.3s-5.5-12.3-12.3-12.3h-63.9v-76.7c84.4-6.3,151.1-76.9,151.1-162.8
+                c0-6.8-5.5-12.3-12.3-12.3s-12.3,5.5-12.3,12.3c0,76.6-62.3,138.9-138.9,138.9s-138.9-62.3-138.9-138.9
+                C106.6,220,101.2,214.5,94.4,214.5z"/>
+        </g>
+    </g>
+    </svg>
+</div>
+
+<script>
+    var siriWave = new SiriWave({
+        container: document.getElementById('siri-container'),
+        width: 1664,
+        height: 850,
+        style: 'ios9',
+    });
+    siriWave.start();
+
+    let isMicrophoneActive = false;
+    let audioContext, analyser, microphone;
+
+    function initAudioStream() {
+        navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+            .then(function(stream) {
+                audioContext = new AudioContext();
+                analyser = audioContext.createAnalyser();
+                microphone = audioContext.createMediaStreamSource(stream);
+                microphone.connect(analyser);
+
+                analyser.fftSize = 2048;
+                let bufferLength = analyser.fftSize;
+                let dataArray = new Uint8Array(bufferLength);
+
+                function draw() {
+                    if (isMicrophoneActive) {
+                        let drawVisual = requestAnimationFrame(draw);
+                        analyser.getByteFrequencyData(dataArray);
+
+                        let max = 0;
+                        for(let i = 0; i < bufferLength; i++) {
+                            max = dataArray[i] > max ? dataArray[i] : max;
+                        }
+
+                        siriWave.setAmplitude(max*0.01);
+                    }
+                }
+
+                draw();
+            })
+            .catch(function(err) {
+                console.log('The following error occurred: ' + err);
+            });
+    }
+
+    document.getElementById('microphone-icon').addEventListener('click', function() {
+        if (!isMicrophoneActive) {
+            // Start audio stream and animation
+            initAudioStream();
+            isMicrophoneActive = true;
+            document.getElementById('microphone-icon').classList.add('active');
+        } else {
+            // Stop audio stream and animation
+            if (audioContext) {
+                audioContext.close().then(function () {
+                    siriWave.setAmplitude(0);
+                    isMicrophoneActive = false;
+                    document.getElementById('microphone-icon').classList.remove('active');
+                });
+            }
+        }
+    });
+</script>
+
+<style>
+    body {
+        background-color: black;
+    }
+
+    #microphone-container {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+    text-align: center;
+    m,animation: au;
+    margin: auto;
+}
+
+#microphone-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.2s ease-in-out;
+    background-color: #242323;
+    border-radius: 100px;
+    padding: 20px;
+    text-align: center;
+    margin: auto;
+}
+
+    #microphone-icon.active {
+        animation: pulse 0.6s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>
+</body>
+</html>
