@@ -7,7 +7,8 @@ def get_chat_response(prompt):
     response = openai.Completion.create(
         engine="text-davinci-002",
         prompt=prompt,
-        max_tokens=550
+        max_tokens=550,
+        temperature=0.7
     )
     return response.choices[0].text.strip()
 
@@ -32,27 +33,49 @@ def recognize_speech():
 def say(text):
     subprocess.run(["say", text])
 
+def check_file_exists():
+    if not os.path.exists("conversations.txt"):
+        with open("conversations.txt", "w") as file:
+            file.write("")
+
+def read_conversations():
+    messages = []
+    with open("conversations.txt", "r") as file:
+        lines = file.readlines()
+        for i in range(0, len(lines), 2):
+            user_input = lines[i].strip()[len("You: "):]
+            if i+1 < len(lines):  # Add this check
+                ai_response = lines[i + 1].strip()[len("Smart Assistant: "):]
+                messages.append({"role": "assistant", "content": ai_response})
+            messages.append({"role": "user", "content": user_input})
+    return messages
+
+def store_conversation(user_input, ai_response):
+    with open("conversations.txt", "a") as file:
+        file.write(f"You: {user_input}\nSmart Assistant: {ai_response}\n\n")
+
 def main():
     print("Welcome to the Smart Assistant!")
+    check_file_exists()
+    messages = read_conversations()
+    context = "You: {}\nSmart Assistant: {}".format(
+        messages[-2]["content"], messages[-1]["content"]
+    ) if len(messages) >= 2 else ""
 
     while True:
         user_input = recognize_speech()
         if user_input is None:
             continue
 
-        # Prepare the prompt for ChatGPT
-        prompt = f"You: {user_input}\nSmart Assistant:"
-
-        # Get the response from ChatGPT
+        prompt = context + f"\nYou: {user_input}\nSmart Assistant:"
         response = get_chat_response(prompt)
-
-        # Append a question to the AI's response
-        response += " Can you elaborate? Give it Zazz"
-
+        # response += " Can you elaborate? Give it Zazz"
         print(f"Smart Assistant: {response}")
-
-        # Use macOS text-to-speech for response
         say(response)
+        store_conversation(user_input, response)
+        context = "You: {}\nSmart Assistant: {}".format(user_input, response)
+        messages.append({"role": "user", "content": user_input})
+        messages.append({"role": "assistant", "content": response})
 
 if __name__ == "__main__":
     openai_api_key = os.getenv('OPENAI_API_KEY')

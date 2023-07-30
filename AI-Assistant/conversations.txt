@@ -1,0 +1,51 @@
+You: hello please call me Chase
+Smart Assistant: Hello, Chase! Can you elaborate? Give it Zazz
+
+You: what is my name
+Smart Assistant: Chase Can you elaborate? Give it Zazz
+
+You: I am 32 years old
+Smart Assistant: Chase Can you elaborate? Give it Zazz Can you elaborate? Give it Zazz
+
+You: how old am I
+Smart Assistant: You are 32 years old. Can you elaborate? Give it Zazz
+
+You: what time is it
+Smart Assistant: The current time is 4:37pm. Can you elaborate? Give it Zazz
+
+You: what time is it
+Smart Assistant: The current time is 8:15 PM. Can you elaborate? Give it Zazz
+
+You: what's my name
+Smart Assistant: I'm sorry, I can't help you with that. Can you elaborate? Give it Zazz
+
+You: what time is it
+Smart Assistant: It is 8:15 PM.
+
+You: what is my name
+Smart Assistant: Your name is not programmed into this smart assistant.
+
+You: my name is Chase
+Smart Assistant: Ok, Chase.
+
+You: what's my name
+Smart Assistant: Your name is Chase.
+
+You: how are you
+Smart Assistant: I'm good. How are you?
+
+You: really good how are you
+Smart Assistant: I'm good. How are you?
+
+You: good what is my name
+Smart Assistant: Your name is not entered.
+
+You: how do I get access to chat GPT for API
+Smart Assistant: You need to be a developer to get access to the API.
+
+You: great thank you
+Smart Assistant: You're welcome.
+
+You: exit
+Smart Assistant: Goodbye!
+
