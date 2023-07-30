@@ -1,7 +1,6 @@
 import os
 import openai
 import speech_recognition as sr
-from elevenlabs import generate, play
 
 def get_chat_response(prompt):
     response = openai.Completion.create(
@@ -11,9 +10,12 @@ def get_chat_response(prompt):
     )
     return response.choices[0].text.strip()
 
+def say(text):
+    os.system(f"say {text}")
+
 def main():
     print("Welcome to the Smart Assistant!")
-    print("You can start by saying 'computer'.")
+    # print("You can start by saying 'computer'.")
 
     r = sr.Recognizer()
 
@@ -47,22 +49,14 @@ def main():
         response = get_chat_response(prompt)
 
         # Append a question to the AI's response
-        response += " Can you elaborate?"
+        response += " Can you elaborate? Give it Zazz"
 
         print(f"Smart Assistant: {response}")
 
-        # Convert the response to speech using the ElevenLabs API
-        audio = generate(
-            text=response,
-            voice="Antoni",
-            model="eleven_monolingual_v1",
-            api_key=elevenlabs_api_key
-        )
-
-        play(audio)
+        # Convert the response to speech using macOS text-to-speech
+        say(response)
 
 if __name__ == "__main__":
     openai_api_key = os.getenv('OPENAI_API_KEY')
-    elevenlabs_api_key = os.getenv('ELEVENLABS_API_KEY')
     openai.api_key = openai_api_key
     main()
