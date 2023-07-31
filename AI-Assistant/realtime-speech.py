@@ -2,11 +2,11 @@ import os
 import speech_recognition as sr
 
 def recognize_speech():
-    # Get the current directory where the script is located
-    script_directory = os.path.dirname(os.path.abspath(__file__))
+    # Get the root directory of your script by going up one level (parent directory)
+    root_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-    # Assuming the service account key file is named "service_account_key.json" in the same directory
-    service_account_key_path = os.path.join(script_directory, "google_cloud_key.json")
+    # Assuming the service account key file is in the root directory
+    service_account_key_path = os.path.join(root_directory, "google_cloud_key.json")
 
     recognizer = sr.Recognizer()
 
