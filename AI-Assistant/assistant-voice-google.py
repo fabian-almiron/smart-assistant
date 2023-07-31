@@ -8,7 +8,7 @@ def get_chat_response(prompt):
         engine="text-davinci-002",
         prompt=prompt,
         max_tokens=550,
-        temperature=0.7
+        temperature=0.1
     )
     return response.choices[0].text.strip()
 

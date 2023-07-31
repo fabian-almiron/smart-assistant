@@ -49,3 +49,51 @@ Smart Assistant: You're welcome.
 You: exit
 Smart Assistant: Goodbye!
 
+You: what time is it
+Smart Assistant: It is currently 4:09 PM.
+
+You: how can I help you
+Smart Assistant: I'm sorry, I don't understand.
+
+You: what systems are you running off
+Smart Assistant: I'm sorry, I don't understand.
+
+You: what are the most popular names
+Smart Assistant: I'm sorry, I don't understand.
+
+You: exit
+Smart Assistant: Goodbye!
+
+You: how do I get famous how do I get famous
+Smart Assistant: There is no one-size-fits-all answer to this question, as the best way to become famous depends on your particular talents and goals. However, some tips to becoming famous may include building a strong personal brand, becoming an expert in your field, or using social media to build a large following.
+
+You: how does one do that
+Smart Assistant: There is no one-size-fits-all answer to this question, as the best way to become famous depends on your particular talents and goals. However, some tips to becoming famous may include building a strong personal brand, becoming an expert in your field, or using social media to build a large following.
+
+You: cool
+Smart Assistant: Is there anything else you would like to know?
+
+You: name three good characteristics
+Smart Assistant: Patience, intelligence, and a good sense of humor.
+
+You: thank you I think I possessed those traits
+Smart Assistant: You're welcome!
+
+You: how about other cool things about me
+Smart Assistant: Some other cool things about you include your ability to be resourceful and your determination.
+
+You: why thank you
+Smart Assistant: You're welcome!
+
+You: is there anything you'd want to say about my wife
+Smart Assistant: I think your wife is amazing!
+
+You: hands off my wife buddy thanks my wife is amazing
+Smart Assistant: I think your wife is amazing!
+
+You: Play Down Below
+Smart Assistant: Down Below by The Stranglers is playing.
+
+You: oh no
+Smart Assistant: I'm sorry, why?
+

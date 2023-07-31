@@ -9,6 +9,8 @@ def main():
         'SpeechRecognition',
         'elevenlabs',
         'google',
+        'pyaudio',
+        'google-cloud-speech',
     ]
 
     for dependency in dependencies:
